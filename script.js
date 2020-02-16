@@ -40,6 +40,7 @@ let randomizer = {
 
 // Generate Password Function
 function generatePassword() {
+  // get password generation settings
   let passwordLength = prompt("Pick a password length between 8 and 128")
   let includeUppercase = confirm("Include uppercase letters?")
   let includeLowercase = confirm("Include lowercase letters?")
@@ -47,8 +48,23 @@ function generatePassword() {
   let includeCharacters = confirm("Include special characters?")
   let password = ''
 
+  
+
+  // Filter out false settings
+  let settings = [{ includeUppercase }, { includeLowercase }, { includeNumbers }, { includeCharacters }]
+
+  console.log(settings)
+  
+
+  let trueSettings = settings.filter(setting => setting == false);
+
+  
+
+  console.log(trueSettings)
+
+  // Loop through length generating randomly each time
   for (i = 0; i < passwordLength; i++) {
-    let settings = [includeUppercase, includeLowercase, includeNumbers, includeCharacters]
+    
     let types = [randomUpper(), randomLower(), randomNumber(), randomCharacter()]
     
   }
