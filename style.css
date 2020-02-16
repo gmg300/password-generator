@@ -1,3 +1,6 @@
+/* General CSS */
+@import url('https://fonts.googleapis.com/css?family=Poppins|Raleway&display=swap');
+
 *,
 *::before,
 *::after {
@@ -5,80 +8,68 @@
 }
 
 html,
-body,
-.wrapper {
+body {
   height: 100%;
   margin: 0;
   padding: 0;
+  color: white;
 }
 
 body {
-  font-family: sans-serif;
-  background-color: #f9fbfd;
+  font-family: 'Raleway', sans-serif;
+  background: #006699;
 }
 
-.wrapper {
-  padding-top: 30px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
+/* Header */
 header {
-  text-align: center;
-  padding: 20px;
-  padding-top: 0px;
-  color: hsl(206, 17%, 28%);
+  font-family: 'Poppins', sans-serif;
+  color: white;
 }
 
-.card {
-  background-color: hsl(0, 0%, 100%);
+h1 {
+  font-size: 2.5rem;
+}
+
+input {
+  margin-right: 1%;
+}
+
+.setting {
+  display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 2% 5%;
+}
+
+
+/* Main Content */
+.generator {
+  background-color: #003366;
   border-radius: 5px;
   border-width: 1px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px 0px;
-  color: hsl(206, 17%, 28%);
-  font-size: 18px;
+  box-shadow: rgba(255, 255, 255, 0.25) 0px 2px 8px 0px;
+  font-size: 1.2rem;
+  width: 92%;
   margin: 0 auto;
-  max-width: 800px;
-  padding: 30px 40px;
 }
 
-.card-header::after {
-  content: " ";
-  display: block;
-  width: 100%;
-  background: #e7e9eb;
-  height: 2px;
+.settings {
+  width: 92%;
+  margin: 0 auto;
 }
 
-.card-body {
-  min-height: 100px;
-}
-
-.card-footer {
-  text-align: center;
-}
-
-.card-footer::before {
-  content: " ";
-  display: block;
-  width: 100%;
-  background: #e7e9eb;
-  height: 2px;
-}
-
-.card-footer::after {
-  content: " ";
-  display: block;
-  clear: both;
+textarea {
+  color: hsl(206, 17%, 28%);
 }
 
 .btn {
-  border: none;
-  background-color: hsl(360, 91%, 36%);
+  border: 2px solid #272838;
+  background-color: #f9f8f8;
   border-radius: 25px;
+  border-color: #272838;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px
     0px;
-  color: hsl(0, 0%, 100%);
+  color: #272838;
   display: inline-block;
   font-size: 22px;
   line-height: 22px;
@@ -88,13 +79,18 @@ header {
   cursor: pointer;
 }
 
+.btn:hover {
+  background-color: #272838;
+  color: #f9f8f8;
+}
+
+.btn:active {
+  background-color: #5e6187;
+}
+
 button[disabled] {
   cursor: default;
   background: #c0c7cf;
-}
-
-.float-right {
-  float: right;
 }
 
 #password {
@@ -112,7 +108,7 @@ button[disabled] {
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  border: 2px dashed #c0c7cf;
+  border: 2px solid #272838;
   border-radius: 6px;
   resize: none;
   overflow: hidden;
@@ -130,8 +126,30 @@ button[disabled] {
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 550px) {
   .btn {
     font-size: 0.8rem;
   }
+
+  .card-body {
+    font-size: 0.8rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
 }
+
+@media (max-width: 445px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  h1 {
+    font-size: 1.25rem;
+  }
+}
+
+
