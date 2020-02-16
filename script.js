@@ -1,10 +1,10 @@
 // Assignment Code
-let password = document.querySelector("#password")
-let passwordLength = document.querySelector("#passwordLength")
-let includeUppercase = document.querySelector("#includeUppercase")
-let includeLowercase = document.querySelector("#includeLowercase")
-let includeNumbers = document.querySelector("#includeNumbers")
-let includeCharacters = document.querySelector("#includeCharacters")
+// let passwordText = document.querySelector("#password")
+// let passwordLength = document.querySelector("#passwordLength")
+// let includeUppercase = document.querySelector("#includeUppercase")
+// let includeLowercase = document.querySelector("#includeLowercase")
+// let includeNumbers = document.querySelector("#includeNumbers")
+// let includeCharacters = document.querySelector("#includeCharacters")
 let generateBtn = document.querySelector("#generate")
 
 
@@ -27,6 +27,32 @@ function randomNumber() {
 function randomCharacter() {
   let characters = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '{', '}', '[', ']', '=', '<', '>', '/', ',', '.']
   return (characters[Math.floor(Math.random() * characters.length)])
+}
+
+let randomizer = {
+  uppercase: randomUpper(),
+  lowercase: randomLower(),
+  number: randomNumber(),
+  character: randomCharacter()
+}
+
+
+
+// Generate Password Function
+function generatePassword() {
+  let passwordLength = prompt("Pick a password length between 8 and 128")
+  let includeUppercase = confirm("Include uppercase letters?")
+  let includeLowercase = confirm("Include lowercase letters?")
+  let includeNumbers = confirm("Include numbers?")
+  let includeCharacters = confirm("Include special characters?")
+  let password = ''
+
+  for (i = 0; i < passwordLength; i++) {
+    let settings = [includeUppercase, includeLowercase, includeNumbers, includeCharacters]
+    let types = [randomUpper(), randomLower(), randomNumber(), randomCharacter()]
+    
+  }
+
 }
 
 
