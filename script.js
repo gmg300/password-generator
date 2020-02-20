@@ -1,6 +1,7 @@
 // Assignment Code
 let generateBtn = document.querySelector("#generate")
 let passwordText = document.querySelector("#password")
+
 // TO BE ADDED
 // let passwordLength = document.querySelector("#passwordLength")
 // let includeUppercase = document.querySelector("#includeUppercase")
