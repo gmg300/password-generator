@@ -1,13 +1,11 @@
 // Assignment Code
 let generateBtn = document.querySelector("#generate")
 let passwordText = document.querySelector("#password")
-
-// TO BE ADDED
-// let passwordLength = document.querySelector("#passwordLength")
-// let includeUppercase = document.querySelector("#includeUppercase")
-// let includeLowercase = document.querySelector("#includeLowercase")
-// let includeNumbers = document.querySelector("#includeNumbers")
-// let includeSymbols = document.querySelector("#includeSymbols")
+let passwordLength = document.querySelector("#passwordLength")
+let includeUppercase = document.querySelector("#includeUppercase")
+let includeLowercase = document.querySelector("#includeLowercase")
+let includeNumbers = document.querySelector("#includeNumbers")
+let includeSymbols = document.querySelector("#includeSymbols")
 
 
 // Password character option arrays
@@ -21,50 +19,50 @@ function generatePassword() {
   // Set password and options variables
   let password = ''
   let characterOptions = []
+ 
+  // Get settings
+  let length = passwordLength.value
+  let settingUpper = includeUppercase.checked
+  let settingLower = includeLowercase.checked
+  let settingNumbers = includeNumbers.checked
+  let settingSymbols = includeSymbols.checked
+  let settings = settingUpper + settingLower + settingNumbers + settingSymbols
+  
+  // console.log(length)
+  // console.log(settingUpper)
+  // console.log(settingLower)
+  // console.log(settingNumbers)
+  // console.log(settingSymbols)
+  // console.log(settings)
 
-  // Get password length
-  let passwordLength = prompt("Pick a password length between 8 and 128 characters.")
-  // Validate password length
-  while(passwordLength < 8 || passwordLength > 128 || isNaN(passwordLength)) {
-    passwordLength = prompt("Invalid input! \nPassword length must be a number between 8 and 128.")
+  // Validate settings
+  while(length < 8 || length > 128 || isNaN(length)) {
+    let errorNumber = "Password length must be a number between 8 and 128."
+    passwordText.value = errorNumber
+    length = passwordLength.value
   }
 
-  // Get character settings
-  let includeUppercase = confirm("Include uppercase letters?")
-  let includeLowercase = confirm("Include lowercase letters?")
-  let includeNumbers = confirm("Include numbers?")
-  let includeSymbols = confirm("Include symbols?")
-  let settings = includeUppercase + includeLowercase + includeNumbers + includeSymbols
-  console.log(settings)
-  // Validate character settings
   while(settings < 1) {
-    alert("Invalid input! \nAt least one character type must be selected.")
-    includeUppercase = confirm("Include uppercase letters?")
-    includeLowercase = confirm("Include lowercase letters?")
-    includeNumbers = confirm("Include numbers?")
-    includeSymbols = confirm("Include symbols?")
     settings = includeUppercase + includeLowercase + includeNumbers + includeSymbols
   } 
-
-  alert(`Your password settings: \n\nPassword length: ${ passwordLength } \nInclude uppercase letters: ${ includeUppercase } \nInclude lowercase letters: ${ includeLowercase } \nInclude numbers: ${ includeNumbers } \nInclude symbols: ${ includeSymbols }`)
   
   // Filter out arrays marked false and create array of everything marked true
-  if(includeUppercase) {
+  if(settingUpper) {
     characterOptions = characterOptions.concat(lettersUpper)
   }
-  if(includeLowercase) {
+  if(settingLower) {
     characterOptions = characterOptions.concat(lettersLower)
   }
-  if(includeNumbers) {
+  if(settingNumbers) {
     characterOptions = characterOptions.concat(numbers)
   }
-  if(includeSymbols) {
+  if(settingSymbols) {
     characterOptions = characterOptions.concat(symbols)
   }
-  console.log(characterOptions)
+  // console.log(characterOptions)
   
   // Loop through length generating random character from selected options and append it to password string
-  for (i = 0; i < passwordLength; i++) {
+  for (i = 0; i < length; i++) {
     let value = characterOptions[Math.floor(Math.random() * characterOptions.length)]
     password = password.concat(value)
   }
