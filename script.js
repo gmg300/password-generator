@@ -20,12 +20,14 @@ function generatePassword() {
   // Set password and options variables
   let password = ''
   let characterOptions = []
+
   // Get password length
-  let passwordLength = prompt("Pick a password length between 8 and 128.")
+  let passwordLength = prompt("Pick a password length between 8 and 128 characters.")
   // Validate password length
   while(passwordLength < 8 || passwordLength > 128 || isNaN(passwordLength)) {
     passwordLength = prompt("Invalid input! \nPassword length must be a number between 8 and 128.")
   }
+
   // Get character settings
   let includeUppercase = confirm("Include uppercase letters?")
   let includeLowercase = confirm("Include lowercase letters?")
@@ -42,9 +44,10 @@ function generatePassword() {
     includeSymbols = confirm("Include symbols?")
     settings = includeUppercase + includeLowercase + includeNumbers + includeSymbols
   } 
+
   alert(`Your password settings: \n\nPassword length: ${ passwordLength } \nInclude uppercase letters: ${ includeUppercase } \nInclude lowercase letters: ${ includeLowercase } \nInclude numbers: ${ includeNumbers } \nInclude symbols: ${ includeSymbols }`)
   
-  // Filter out options marked false and create array of everything else
+  // Filter out arrays marked false and create array of everything marked true
   if(includeUppercase) {
     characterOptions = characterOptions.concat(lettersUpper)
   }
@@ -57,13 +60,12 @@ function generatePassword() {
   if(includeSymbols) {
     characterOptions = characterOptions.concat(symbols)
   }
-  // console.log(characterOptions)
+  console.log(characterOptions)
   
-  // Loop through length generating random character each time and appending to password
+  // Loop through length generating random character from selected options and append it to password string
   for (i = 0; i < passwordLength; i++) {
     let value = characterOptions[Math.floor(Math.random() * characterOptions.length)]
     password = password.concat(value)
-    // console.log(password)
   }
   return password
 }
