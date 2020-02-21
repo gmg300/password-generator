@@ -20,8 +20,8 @@ function generatePassword() {
   let password = ''
   let characterOptions = []
  
-  // Get settings
-  let length = passwordLength.value
+  // Get user settings
+  let length = parseInt(passwordLength.value)
   let settingUpper = includeUppercase.checked
   let settingLower = includeLowercase.checked
   let settingNumbers = includeNumbers.checked
@@ -35,17 +35,14 @@ function generatePassword() {
   // console.log(settingSymbols)
   // console.log(settings)
 
-  // Validate settings
-  while(length < 8 || length > 128 || isNaN(length)) {
-    let errorNumber = "Password length must be a number between 8 and 128."
-    passwordText.value = errorNumber
-    length = passwordLength.value
+  // Validate user settings
+  if(length < 8 || length > 128 || isNaN(length)) {
+    return 'Password length must be a number between 8 and 128.'
   }
-
-  while(settings < 1) {
-    settings = includeUppercase + includeLowercase + includeNumbers + includeSymbols
-  } 
-  
+  if(settings < 1) {
+    return 'You must include at least one type of character.'
+  }
+ 
   // Filter out arrays marked false and create array of everything marked true
   if(settingUpper) {
     characterOptions = characterOptions.concat(lettersUpper)
@@ -59,10 +56,11 @@ function generatePassword() {
   if(settingSymbols) {
     characterOptions = characterOptions.concat(symbols)
   }
+
   // console.log(characterOptions)
   
   // Loop through length generating random character from selected options and append it to password string
-  for (i = 0; i < length; i++) {
+  for(i = 0; i < length; i++) {
     let value = characterOptions[Math.floor(Math.random() * characterOptions.length)]
     password = password.concat(value)
   }
@@ -73,8 +71,15 @@ function generatePassword() {
 // Write password to the #password input
 function writePassword() {
   let password = generatePassword();
+  if(password == 'Password length must be a number between 8 and 128.' || password == 'You must include at least one type of character.' ) {
+    passwordText.style.color = 'red'
+    passwordText.style.fontWeight = 'bold'
+  } else {
+    passwordText.style.color = 'hsl(206, 17%, 28%)'
+    passwordText.style.fontWeight = 'normal'
+  }
   passwordText.value = password;
-
+  
 }
 
 
