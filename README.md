@@ -22,5 +22,3 @@ These videos helped me develop my psuedo-code before creating my own password ge
 * https://www.youtube.com/watch?v=iKo9pDKKHnc√
 
 ## Contributing
-
-## Tests
