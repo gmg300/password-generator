@@ -1,76 +1,98 @@
 // Assignment Code
-let generateBtn = document.querySelector("#generate")
-let passwordText = document.querySelector("#password")
-let passwordLength = document.querySelector("#passwordLength")
-let includeUppercase = document.querySelector("#includeUppercase")
-let includeLowercase = document.querySelector("#includeLowercase")
-let includeNumbers = document.querySelector("#includeNumbers")
-let includeSymbols = document.querySelector("#includeSymbols")
+var generateBtn = document.querySelector("#generate");
+var passwordText = document.querySelector("#password");
+var passwordLength = document.querySelector("#passwordLength");
+var includeUppercase = document.querySelector("#includeUppercase");
+var includeLowercase = document.querySelector("#includeLowercase");
+var includeNumbers = document.querySelector("#includeNumbers");
+var includeSymbols = document.querySelector("#includeSymbols");
 
 
 // Password character option arrays
-let lettersUpper = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-let lettersLower = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-let numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-let symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '{', '}', '[', ']', '=', '<', '>', '/', ',', '.']
+var lettersUpperArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+var lettersLowerArr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+var numbersArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+var symbolsArr = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '{', '}', '[', ']', '=', '<', '>', '/', ',', '.'];
+
+function randomUpper() {
+    var letterUpper = lettersUpperArr[Math.floor(Math.random() * lettersUpperArr.length)]
+    return letterUpper;
+}
+function randomLower() {
+    var letterLower = lettersLowerArr[Math.floor(Math.random() * lettersLowerArr.length)]
+    return letterLower;
+}
+function randomNumber() {
+    var number = numbersArr[Math.floor(Math.random() * numbersArr.length)]
+    return number;
+}
+function randomSymbol() {
+    var symbol = symbolsArr[Math.floor(Math.random() * symbolsArr.length)]
+    return symbol;
+}
+var characterOptions = {
+  upper: randomUpper(),
+  lower: randomLower(), 
+  numbers: randomNumber(),
+  symbols: randomSymbol()
+};
+
+console.log(characterOptions.upper)
 
 
 function generatePassword() {
-  // Set password and options variables
-  let password = ''
-  let characterOptions = []
- 
-  // Get user settings
-  let length = parseInt(passwordLength.value)
-  let settingUpper = includeUppercase.checked
-  let settingLower = includeLowercase.checked
-  let settingNumbers = includeNumbers.checked
-  let settingSymbols = includeSymbols.checked
-  let settings = settingUpper + settingLower + settingNumbers + settingSymbols
-  
-  // console.log(length)
-  // console.log(settingUpper)
-  // console.log(settingLower)
-  // console.log(settingNumbers)
-  // console.log(settingSymbols)
-  // console.log(settings)
+  var password = ''; // Set password and options variables
+  var length = parseInt(passwordLength.value); // Get user settings
+  var upper = includeUppercase.checked;
+  var lower = includeLowercase.checked;
+  var numbers = includeNumbers.checked;
+  var symbols = includeSymbols.checked;
+  var settingsCount = upper + lower + numbers + symbols;
+  var settings = [
+    {
+      upper
+    }, 
+    {
+      lower
+    }, 
+    {
+      numbers
+    }, 
+    {
+      symbols
+    }
+  ].filter(setting => { // filter out unchecked settings
+    return Object.values(setting)[0];
+  });
 
-  // Validate user settings
-  if(length < 8 || length > 128 || isNaN(length)) {
-    return 'Password length must be a number between 8 and 128.'
+  if(length < 8 || length > 128 || isNaN(length)) { // Validate length setting
+    return 'Password length must be a number between 8 and 128.';
   }
-  if(settings < 1) {
-    return 'You must include at least one type of character.'
+  if(settingsCount < 1) { // Validate character types setting
+    return 'You must include at least one type of character.';
   }
- 
-  // Filter out arrays marked false and create array of everything marked true
-  if(settingUpper) {
-    characterOptions = characterOptions.concat(lettersUpper)
-  }
-  if(settingLower) {
-    characterOptions = characterOptions.concat(lettersLower)
-  }
-  if(settingNumbers) {
-    characterOptions = characterOptions.concat(numbers)
-  }
-  if(settingSymbols) {
-    characterOptions = characterOptions.concat(symbols)
-  }
-
-  // console.log(characterOptions)
   
   // Loop through length generating random character from selected options and append it to password string
-  for(i = 0; i < length; i++) {
-    let value = characterOptions[Math.floor(Math.random() * characterOptions.length)]
-    password = password.concat(value)
+  for(i = 0; i < length; i += settingsCount) {
+    characterOptions = {
+      upper: randomUpper(),
+      lower: randomLower(), 
+      numbers: randomNumber(),
+      symbols: randomSymbol()
+    };
+    settings.forEach(setting => {
+      var characterType = Object.keys(setting)[0];
+      console.log(characterType)
+      password += characterOptions[characterType];
+    });
   }
-  return password
+  return password;
 }
 
 
 // Write password to the #password input
 function writePassword() {
-  let password = generatePassword();
+  var password = generatePassword();
   if(password == 'Password length must be a number between 8 and 128.' || password == 'You must include at least one type of character.' ) {
     passwordText.style.color = 'red'
     passwordText.style.fontWeight = 'bold'
